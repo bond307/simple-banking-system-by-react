@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple banking system in  javascript</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js"></script>
+</head>
+<body>
+    <div class="container">
+
+
+        <section id ="login-area">
+            <h2>Welcome to our Bank</h2>
+
+        
+                <div class="form-group">
+                    <label for="idnumber"></label>
+                    <input type="text" id="idnumber" value="918772" placeholder="idnumber" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="password"></label>
+                    <input type="password" id="password" value="123456" placeholder="password" class="form-control">
+                </div>
+
+                <button class="btn btn-success" id="login-btn">Login</button>
+        </section>
+
+
+        <section id="main-content">
+            <h2 class="text-center">Your Bank History</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="current-blace">
+                        <h3>Deposit</h3>
+                        <h1>$<span id="currentDeposit">00</span></h1>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="Withdraw-blace">
+                        <h3>Withdraw </h3>
+                        <h1>$<span id="currentWithdraw"> 00</span></h1>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="Total-blace">
+                        <h3>Total </h3>
+                        <h1>$<span id="total">1240</span></h1>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="input-section">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box">
+                            <h3>Deposit </h3>
+                            <div class="form-group">
+                                <input type="text" id="DepositAmount" class="form-control" placeholder="$100">
+                            </div>
+                            <button id="addDeposit" class="btn btn-success">Deposit</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box">
+                            <h3>Withdraw</h3> </h3>
+                            <div class="form-group">
+                                <input type="text" id="WithdrawAmount" class="form-control" placeholder="$100">
+                            </div>
+                            <button id="withdrawBtn" class="btn btn-success">Withdraw</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+</body>
+<script type="text/javascript">
+    //login functionality 
+const loginBtn = document.getElementById("login-btn");
+loginBtn.addEventListener("click", function(){
+    const idNumber = document.getElementById("idnumber").value;
+    const password = document.getElementById("password").value;
+
+
+    //ceheck password
+    if(idNumber != "918772"){
+        alert("Your login Id Number is not match");
+         
+    }else{
+       //check password
+       if(password != "123456"){
+        alert("Your login password is not match");
+        }else{
+
+            document.getElementById("login-area").style.display = "none";
+            document.getElementById("main-content").style.display = "block";
+
+
+        }
+    }
+
+   
+
+});
+
+// deposit
+const depositBtn = document.getElementById("addDeposit");
+depositBtn.addEventListener("click", function(){
+
+    amountNumber = amount("DepositAmount");
+
+  
+    insertDeposit("currentDeposit", amountNumber);
+    insertDeposit("total", amountNumber);
+    
+    document.getElementById("DepositAmount").value = "";
+});
+
+//withdraw
+const withdrawBtn = document.getElementById("withdrawBtn");
+withdrawBtn.addEventListener("click", function(){
+    amountNumber = amount("WithdrawAmount");
+    insertDeposit("currentWithdraw", amountNumber);
+    insertDeposit("total", -1 * amountNumber);
+
+    document.getElementById("WithdrawAmount").value = "";
+    
+});
+
+function amount(id){
+    const amount = document.getElementById(id).value;
+    const amountNumber = parseFloat(amount);
+    return amountNumber;
+}
+
+//fucnction for deposit
+function insertDeposit(id, amountNumber){
+    const getposition = document.getElementById(id).innerHTML;
+    const ammount = parseFloat(getposition);
+    const totalBlance = ammount + amountNumber;
+    document.getElementById(id).innerHTML = totalBlance;
+}
+</script>
+</html>
